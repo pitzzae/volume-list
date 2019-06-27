@@ -6,7 +6,7 @@
 /*   By: gtorresa <gtorresa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 14:33:03 by gtorresa          #+#    #+#             */
-/*   Updated: 2019/06/13 13:30:47 by gtorresa         ###   ########.fr       */
+/*   Updated: 2019/06/28 08:31:07 by gtorresa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ napi_value DiskList(napi_env env, napi_callback_info info) {
 	lst = ft_napi_get_array_arg(info);
 	if (lst == NULL)
 		lst = ft_mounted_fs();
-	//ft_lstiter(lst, print_lst);
 	ft_lstiter(lst, ft_stats_fs);
+	//ft_lstiter(lst, print_lst);
 	ft_lsttoarray(env, lst, data_display, &myArray);
 	ft_lstdel(&lst, ft_free_t_data);
 	return myArray;
