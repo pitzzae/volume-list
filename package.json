@@ -1,0 +1,16 @@
+{
+  "name": "volume-list",
+  "version": "1.0.0",
+  "description": "stats disk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "node-gyp rebuild"
+  },
+  "author": "gtorresa@atomos.fr",
+  "license": "ISC",
+  "gypfile": true,
+  "devDependencies": {
+    "node-gyp": "^5.0.0"
+  }
+}
