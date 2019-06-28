@@ -6,7 +6,7 @@
 /*   By: gtorresa <gtorresa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 14:33:03 by gtorresa          #+#    #+#             */
-/*   Updated: 2019/06/28 08:31:07 by gtorresa         ###   ########.fr       */
+/*   Updated: 2019/06/28 12:54:12 by gtorresa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ napi_value create_volume(t_list *lst) {
 	Object = ft_napi_create_object();
 
 	ft_napi_set_object_property(Object, "size",
-								ft_napi_set_object_uint32(data->size));
+								ft_napi_set_object_number(data->size));
 
 	ft_napi_set_object_property(Object, "used",
-								ft_napi_set_object_uint32(data->used));
+								ft_napi_set_object_number(data->used));
 
 	ft_napi_set_object_property(Object, "free",
-								ft_napi_set_object_uint32(data->free));
+								ft_napi_set_object_number(data->free));
 
 	if (data->mount != NULL)
 		ft_napi_set_object_property(Object, "mount",
@@ -85,28 +85,61 @@ void print_lst(t_list *lst) {
 	printf("data->mount = %s\n", data->mount);
 	printf("data->fstype = %s\n", data->fstype);
 	printf("data->device = %s\n", data->device);
+	printf("data->fsid = %lu\n", data->fsid);
 	printf("data->free = %zu\n", data->free);
 	printf("data->size = %zu\n", data->size);
 	printf("data->used = %zu\n\n", data->used);
 }
 
+void get_device_info(t_list *lst_mount, t_list *lst_arg) {
+	t_list *tmp1;
+	t_list *tmp2;
+	t_data *data1;
+	t_data *data2;
+
+	tmp1 = lst_arg;
+	tmp2 = lst_mount;
+	while (tmp1) {
+		data1 = (t_data *) tmp1->content;
+		while (tmp2) {
+			data2 = (t_data *) tmp2->content;
+			if (data1->fsid == data2->fsid) {
+				data1->mount = ft_strdup(data2->mount);
+				data1->fstype = ft_strdup(data2->fstype);
+				data1->device = ft_strdup(data2->device);
+			}
+			tmp2 = tmp2->next;
+		}
+		tmp1 = tmp1->next;
+		tmp2 = lst_mount;
+	}
+}
+
 napi_value DiskList(napi_env env, napi_callback_info info) {
 	napi_status status;
 	napi_value myArray;
-	t_list *lst;
+	t_list *lst_mount;
+	t_list *lst_arg;
 
 	status = napi_create_array(env, &myArray);
 	if (status != napi_ok) {
 		napi_throw_error(env, NULL, "Unable to create myArray value");
 	}
 
-	lst = ft_napi_get_array_arg(info);
-	if (lst == NULL)
-		lst = ft_mounted_fs();
-	ft_lstiter(lst, ft_stats_fs);
-	//ft_lstiter(lst, print_lst);
-	ft_lsttoarray(env, lst, data_display, &myArray);
-	ft_lstdel(&lst, ft_free_t_data);
+	lst_arg = ft_napi_get_array_arg(info);
+	lst_mount = ft_mounted_fs();
+	if (lst_arg == NULL) {
+		ft_lstiter(lst_mount, ft_stats_fs);
+		//ft_lstiter(lst_mount, print_lst);
+		ft_lsttoarray(env, lst_mount, data_display, &myArray);
+		ft_lstdel(&lst_mount, ft_free_t_data);
+	} else {
+		get_device_info(lst_mount, lst_arg);
+		ft_lstiter(lst_arg, ft_stats_fs);
+		//ft_lstiter(lst_arg, print_lst);
+		ft_lsttoarray(env, lst_arg, data_display, &myArray);
+		ft_lstdel(&lst_arg, ft_free_t_data);
+	}
 	return myArray;
 }
 

@@ -43,4 +43,6 @@ char *ft_strdup(char *s1);
 
 void *ft_memcpy(void *dst, const void *src, size_t len);
 
+void ft_bzero(void *b, size_t len);
+
 #endif

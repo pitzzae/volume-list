@@ -13,6 +13,7 @@
         "src/ft_mounted_fs_darwin.c",
         "src/ft_mounted_fs_content.c",
         "src/ft_free_t_data.c",
+        "src/libft/ft_bzero.c",
         "src/libft/ft_lstadd.c",
         "src/libft/ft_lstdel.c",
         "src/libft/ft_lstdelone.c",
@@ -27,7 +28,7 @@
         "src/libnapi/ft_napi_env.c",
         "src/libnapi/ft_napi_set_object_property.c",
         "src/libnapi/ft_napi_set_object_string.c",
-        "src/libnapi/ft_napi_set_object_uint32.c"
+        "src/libnapi/ft_napi_set_object_number.c"
       ]
     }
   ]

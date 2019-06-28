@@ -6,7 +6,7 @@
 /*   By: gtorresa <gtorresa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:22:23 by gtorresa          #+#    #+#             */
-/*   Updated: 2019/06/27 19:43:59 by gtorresa         ###   ########.fr       */
+/*   Updated: 2019/06/28 12:05:53 by gtorresa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ t_list *ft_mounted_fs(void) {
 		if (ent->mnt_fsname[0] == '/') {
 			if (mount_list != NULL && ft_mounted_fs_filter(mount_list, ent->mnt_fsname)) {
 				mount_list_tmp = ft_lstnew(NULL, sizeof(t_data));
-				mount_list_tmp->content = ft_mounted_fs_content("", ent->mnt_dir, ent->mnt_fsname, ent->mnt_type);
+				mount_list_tmp->content = ft_mounted_fs_content(NULL, ent->mnt_dir, ent->mnt_fsname, ent->mnt_type);
 				ft_lstadd(&mount_list, mount_list_tmp);
 			} else if (mount_list == NULL) {
 				mount_list = ft_lstnew(NULL, sizeof(t_data));
-				mount_list->content = ft_mounted_fs_content("", ent->mnt_dir, ent->mnt_fsname, ent->mnt_type);
+				mount_list->content = ft_mounted_fs_content(NULL, ent->mnt_dir, ent->mnt_fsname, ent->mnt_type);
 			}
 		}
 	}

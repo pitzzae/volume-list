@@ -24,7 +24,7 @@ napi_value ft_napi_create_object(void);
 void
 ft_napi_set_object_property(napi_value Object, char *name, napi_value Value);
 
-napi_value ft_napi_set_object_uint32(unsigned long value);
+napi_value ft_napi_set_object_number(unsigned long value);
 
 napi_value ft_napi_set_object_string(char *value);
 

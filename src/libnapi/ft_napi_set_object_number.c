@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stats_fs.c                                      :+:      :+:    :+:   */
+/*   ft_napi_set_object_number.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gtorresa <gtorresa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 14:33:03 by gtorresa          #+#    #+#             */
-/*   Updated: 2019/06/28 08:55:39 by gtorresa         ###   ########.fr       */
+/*   Updated: 2019/06/28 16:05:26 by gtorresa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/ft_volume_list.h"
+#include "./include/libnapi.h"
 
-char *select_path(t_data *data) {
-	if (data->path != NULL)
-		return data->path;
-	else
-		return data->mount;
-}
+napi_value ft_napi_set_object_number(unsigned long value) {
+	napi_status status;
+	napi_value Number;
 
-void ft_stats_fs(t_list *lst) {
-	struct statvfs buf;
-	t_data *data;
-
-	data = (t_data *) lst->content;
-	if (!statvfs(select_path(data), &buf)) {
-		data->size = buf.f_blocks * buf.f_frsize;
-		data->free = buf.f_bfree * buf.f_frsize;
-		data->used = data->size - data->free;
-		data->fsid = buf.f_fsid;
-	}
+	status = napi_create_double(ft_napi_env(NULL), (double) value, &Number);
+	if (status != napi_ok)
+		napi_throw_error(ft_napi_env(NULL), NULL,
+						 "Unable to create size number value");
+	return Number;
 }

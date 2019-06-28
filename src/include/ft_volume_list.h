@@ -33,12 +33,11 @@
 #include "../libft/include/libft.h"
 #include "../libnapi/include/libnapi.h"
 
-#define MAX_FS 128
-
 typedef struct s_data {
 	unsigned long size;
 	unsigned long used;
 	unsigned long free;
+	unsigned long fsid;
 	char *path;
 	char *mount;
 	char *device;

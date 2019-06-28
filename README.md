@@ -80,12 +80,18 @@ Output
     "size": 999995129856,
     "used": 650875514880,
     "free": 349119614976,
+    "mount": "/",
+    "device": "/dev/disk1s1",
+    "fstype": "apfs",
     "path": "/"
   },
   {
     "size": 999995129856,
     "used": 650875514880,
     "free": 349119614976,
+    "mount": "/",
+    "device": "/dev/disk1s1",
+    "fstype": "apfs",
     "path": "/tmp"
   }
 ]

@@ -1,7 +1,7 @@
 {
   "name": "@pitzzae/volume-list",
-  "version": "1.0.4",
-  "description": "stats disk",
+  "version": "1.0.5",
+  "description": "List mouted volume disk",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
