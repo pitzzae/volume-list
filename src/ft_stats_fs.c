@@ -26,8 +26,8 @@ void ft_stats_fs(t_list *lst) {
 	data = (t_data *) lst->content;
 	if (!statvfs(select_path(data), &buf)) {
 		data->size = buf.f_blocks * buf.f_frsize;
-		data->free = buf.f_bfree * buf.f_frsize;
-		data->used = data->size - data->free;
+		data->free = buf.f_bavail * buf.f_frsize;
+		data->used = data->size - (buf.f_bfree * buf.f_frsize);
 		data->fsid = buf.f_fsid;
 	}
 }
